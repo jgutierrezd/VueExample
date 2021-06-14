@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Example 02</title>
+    </head>
+
+    <body>
+        <div id="app">
+            Contador: {{contador}}
+            <button type="button" @click="stopInterval">{{button_text}}</button>
+        </div>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script>
+            const example02 = {
+                data() {
+                    return {
+                        contador: 0,
+                        button_text: "Detener"
+                    }
+                },
+                mounted() {
+                    //Evento que se ejecuta al montar la pagina
+                    this.interval = setInterval(() => {this.contador++;}, 1000);
+                },
+                methods: {
+                    stopInterval() {
+                        if(this.interval==null){
+                            console.log("Iniciando ..");
+                            this.interval = setInterval(() => {this.contador++;}, 1000);
+                            this.button_text="Detener";
+
+                        } else{
+                            console.log("Deteniendo ..");
+                            clearInterval(this.interval);
+                            this.interval=null;
+                            this.button_text="Iniciar";
+                        }
+                    }
+                }
+            }
+            var mountApp = Vue.createApp(example02).mount("#app")
+        </script>
+    </body>
+
+</html>
